@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Gooners</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="ui">
+    <div id="start">
+      <h1>The Gooners</h1>
+      <p>Ein 3D-Browservideospiel (First Person). Klicke, um zu starten.</p>
+      <button id="startBtn">Spiel starten</button>
+    </div>
+    <div id="hud" class="hidden">
+      <div class="bar">
+        <span id="health">HP: 100</span>
+        <span id="ammo">Spritzen: ∞</span>
+        <span id="score">Score: 0</span>
+        <span id="bots">Bots: 0</span>
+      </div>
+      <div id="crosshair">+</div>
+    </div>
+    <div id="pause" class="hidden">
+      <h2>Pausiert</h2>
+      <p>Drücke ESC zum Fortsetzen.</p>
+    </div>
+    <div id="gameover" class="hidden">
+      <h2>Game Over</h2>
+      <p id="finalScore"></p>
+      <button id="retryBtn">Nochmal</button>
+    </div>
+  </div>
+  <canvas id="game"></canvas>
+
+  <!-- Three.js CDN -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

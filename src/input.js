@@ -58,7 +58,7 @@ export class Input {
     player.velocity.x = 0;
     player.velocity.z = 0;
     player.velocity.addScaledVector(forward, speed * this.move.forward);
-    player.velocity.addScaledVector(right, speed * this.move.right);
+    player.velocity.addScaledVector(right, speed * this.move.right * -1);
 
     if (this.jumpRequested && player.onGround) {
       player.velocity.y = player.jumpStrength;

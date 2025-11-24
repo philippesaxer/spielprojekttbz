@@ -111,6 +111,7 @@ export class Game {
     const dt = clamp(this.clock.getDelta(), 0, 0.05);
 
     if (this.state === 'playing') {
+      this.input.update(dt, this.player);
       this.player.update(dt, this.world);
       this.bots.update(dt, this.player, this.world);
       this.projectiles.update(dt, this.world, this.bots);

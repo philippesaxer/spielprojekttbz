@@ -51,7 +51,7 @@ export class Input {
     player.camera.getWorldDirection(forward);
     forward.y = 0; forward.normalize();
 
-    const right = new THREE.Vector3().crossVectors(forward, new THREE.Vector3(0,1,0)).normalize().multiplyScalar(-1);
+    const right = new THREE.Vector3().crossVectors(forward, new THREE.Vector3(0,1,0)).normalize();
 
     const speed = player.speed * (this.sprint ? 1.6 : 1);
     player.velocity.x = 0;

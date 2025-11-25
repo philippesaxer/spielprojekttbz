@@ -60,7 +60,7 @@ export class Player {
 
   update(dt, world) {
     // Camera orientation comes from mouse input (set externally)
-    this.camera.rotation.set(this.yaw, this.pitch, 0, 'YXZ');
+    this.camera.rotation.set(this.pitch, this.yaw, 0, 'YXZ');
 
     // Gravity
     this.velocity.y -= this.gravity * dt;

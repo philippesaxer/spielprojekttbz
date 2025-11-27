@@ -1,6 +1,6 @@
 # The Gooners
 
-Ein minimalistisches 3D-First-Person-Browserspiel mit Three.js. Du schießt weiße Spritzen auf Bots, die patrouillieren und dich verfolgen.
+Ein minimalistisches 3D-First-Person-Browserspiel mit Three.js. Du schießt weiße Spritzen auf Bots, die dich verfolgen.
 
 ## Features
 - First-Person-Steuerung (WASD, Maus, Sprint, Springen, Pause)

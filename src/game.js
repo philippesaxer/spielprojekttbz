@@ -6,7 +6,7 @@ import { Input } from './input.js';
 import { clamp } from './utils.js';
 
 export class Game {
-  constructor(canvas, ui) {
+  constructor(canvas, ui, assets) { 
     this.canvas = canvas;
     this.ui = ui;
 
@@ -20,7 +20,7 @@ export class Game {
 
     this.world = createWorld(this.scene);
     this.player = new Player(this.camera, this.scene);
-    this.bots = new BotManager(this.scene);
+    this.bots = new BotManager(this.scene, assets); 
     this.projectiles = new ProjectilePool(this.scene);
 
     this.input = new Input(this.canvas, this.player);

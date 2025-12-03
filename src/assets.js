@@ -1,8 +1,3 @@
-/**
- * Lädt und gibt die notwendigen Assets (Texturen und Materialien) zurück.
- * @param {THREE} THREE - Das THREE.js-Objekt.
- * @returns {Promise<{botMaterial: THREE.Material}>}
- */
 export async function loadAssets(THREE) {
   // 1. Textur laden
   const textureLoader = new THREE.TextureLoader();

@@ -90,15 +90,15 @@ export class Bot {
 }
 
 export class BotManager {
-  // Assets in den Konstruktor aufnehmen
+  // WICHTIG: Assets im Konstruktor empfangen und speichern
   constructor(scene, assets) { 
     this.scene = scene;
     this.bots = [];
-    this.assets = assets; // Speichert die Assets
+    this.assets = assets; 
   }
 
   spawn(pos) {
-    // customMaterial beim Spawnen übergeben
+    // Ruft jetzt die botMaterial korrekt ab
     const b = new Bot(this.scene, pos, this.assets.botMaterial); 
     this.bots.push(b);
   }

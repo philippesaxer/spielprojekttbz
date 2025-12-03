@@ -48,8 +48,8 @@ export class Bot {
       toPlayer.normalize();
       this.mesh.position.addScaledVector(toPlayer, this.speed * dt);
       
-      // NEU: Bot in die Blickrichtung drehen
-      this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z); 
+      // Bot in die Blickrichtung drehen
+      this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z) + Math.PI; 
 
     } else {
       // wander
@@ -59,7 +59,7 @@ export class Bot {
       }
       
       // NEU: Bot in die Wanderrichtung drehen
-      this.mesh.rotation.y = Math.atan2(this._wanderDir.x, this._wanderDir.z);
+      this.mesh.rotation.y = Math.atan2(this._wanderDir.x, this._wanderDir.z) + Math.PI;
     }
 
     // simple floor clamp

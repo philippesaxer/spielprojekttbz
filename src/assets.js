@@ -2,7 +2,7 @@ export async function loadAssets(THREE) {
   // 1. Textur laden
   const textureLoader = new THREE.TextureLoader();
   // PASSEN SIE DEN DATEINAMEN HIER AN
-  const botTexture = await textureLoader.loadAsync('images/ale.png'); 
+  const botTexture = await textureLoader.loadAsync('images/baschar.png'); 
 
   // 2. MeshStandardMaterial erstellen und Textur als 'map' verwenden
   const botMaterial = new THREE.MeshStandardMaterial({

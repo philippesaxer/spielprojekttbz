@@ -11,7 +11,6 @@ export class Bot {
 
     
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
-    // Material: Das texturierte Material verwenden (Fallback auf Rot)
     const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
     this.mesh = new THREE.Mesh(geo, mat);
     this.mesh.position.copy(pos);
@@ -23,7 +22,6 @@ export class Bot {
   damage(d) {
     if (this.dead) return;
     this.health -= d;
-    // Rotes Blinken
     this.mesh.material.color.setHex(0xffb3b3); 
     if (this.health <= 0) {
       this.dead = true;
@@ -46,7 +44,6 @@ export class Bot {
       toPlayer.normalize();
       this.mesh.position.addScaledVector(toPlayer, this.speed * dt);
       
-      // Bot in die Blickrichtung drehen
       this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z) + Math.PI; 
 
     } else {

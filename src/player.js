@@ -22,7 +22,7 @@ export class Player {
     const bodyGeo = new THREE.CapsuleGeometry(0.35, 1.2, 8, 16);
     const bodyMat = new THREE.MeshBasicMaterial({ color: 0x8fd3ff, wireframe: true });
     this.body = new THREE.Mesh(bodyGeo, bodyMat);
-    this.body.visible = false; // invisible in FP view
+    this.body.visible = false; 
     scene.add(this.body);
 
     this.camera.position.copy(this.position);
@@ -37,7 +37,6 @@ export class Player {
   getShootDirection() {
     const dir = new THREE.Vector3();
     this.camera.getWorldDirection(dir);
-    // small random spread
     dir.x += (Math.random() - 0.5) * 0.01;
     dir.y += (Math.random() - 0.5) * 0.01;
     dir.z += (Math.random() - 0.5) * 0.01;
@@ -59,13 +58,13 @@ export class Player {
   }
 
   update(dt, world) {
-    // Camera orientation comes from mouse input (set externally)
+    // Camera orientation
     this.camera.rotation.set(this.pitch, this.yaw, 0, 'YXZ');
 
     // Gravity
     this.velocity.y -= this.gravity * dt;
 
-    // Movement (set externally via Input)
+    // Movement
     this.position.addScaledVector(this.velocity, dt);
 
     // Ground collision
@@ -78,7 +77,7 @@ export class Player {
       this.onGround = false;
     }
 
-    // Simple obstacle collision: clamp inside bounding boxes
+    // Simple obstacle collision
     for (const o of world.obstacles) {
       const b = new THREE.Box3().setFromObject(o);
       const playerBox = new THREE.Box3().setFromCenterAndSize(
@@ -86,7 +85,6 @@ export class Player {
         new THREE.Vector3(0.7, 1.8, 0.7)
       );
       if (b.intersectsBox(playerBox)) {
-        // push out along smallest axis
         const size = new THREE.Vector3();
         b.getSize(size);
         const center = new THREE.Vector3();

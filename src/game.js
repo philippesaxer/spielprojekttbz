@@ -24,7 +24,7 @@ export class Game {
     this.projectiles = new ProjectilePool(this.scene);
 
     this.input = new Input(this.canvas, this.player);
-    this.state = 'menu'; // menu | playing | paused | over
+    this.state = 'menu'; 
     this.score = 0;
 
     this._bind();

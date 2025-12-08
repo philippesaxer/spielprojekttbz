@@ -10,7 +10,7 @@ let game = null;
 async function init() {
   const assets = await loadAssets(window.THREE); 
 
-  const game = new Game(canvas, ui, assets); // Assets an Game übergeben
+  const game = new Game(canvas, ui, assets); 
 
   ui.onStart(() => game.start());
   ui.onRetry(() => game.reset());

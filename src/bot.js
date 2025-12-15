@@ -1,5 +1,5 @@
 export class Bot {
-
+  // customMaterial hinzufügen
   constructor(scene, pos = new THREE.Vector3(), customMaterial) { 
     this.kind = 'bot';
     this.health = 100;
@@ -9,13 +9,17 @@ export class Bot {
     this.attackRange = 2.2;
     this.cooldown = 0;
 
-
+    // Kapsel-Geometrie beibehalten
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
-    // Material
+    // Material: Das texturierte Material verwenden (Fallback auf Rot)
     const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
     this.mesh = new THREE.Mesh(geo, mat);
     this.mesh.position.copy(pos);
-@@ -23,7 +22,6 @@
+    scene.add(this.mesh);
+
+    this._wanderDir = new THREE.Vector3(Math.random()-0.5, 0, Math.random()-0.5).normalize();
+  }
+
   damage(d) {
     if (this.dead) return;
     this.health -= d;
@@ -23,28 +27,44 @@ export class Bot {
     this.mesh.material.color.setHex(0xffb3b3); 
     if (this.health <= 0) {
       this.dead = true;
-@@ -46,70 +44,69 @@
+      this.mesh.visible = false;
+    }
+  }
+
+  update(dt, player, world) {
+    if (this.dead) return;
+
+    // Farbe langsam wiederherstellen: Geht zurück zu Weiß (0xffffff), dem Standard-Farbmultiplikator
+    this.mesh.material.color.lerp(new THREE.Color(0xffffff), 0.1); 
+
+    const toPlayer = player.position.clone().sub(this.mesh.position);
+    const dist = toPlayer.length();
+
+    if (dist < this.aggroRange) {
+      // pursue
+      toPlayer.y = 0;
       toPlayer.normalize();
       this.mesh.position.addScaledVector(toPlayer, this.speed * dt);
 
+      // NEU: Bot in die Blickrichtung drehen
+      this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z); 
       // Bot in die Blickrichtung drehen
       this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z) + Math.PI; 
 
     } else {
-
-      this.mesh.position.addScaledVector(this._wanderDir, this.speed * 0.5 * dt);
-      if (Math.random() < 0.01) {
-        this._wanderDir.set(Math.random()-0.5, 0, Math.random()-0.5).normalize();
+      // wander
+@@ -59,61 +59,61 @@
       }
 
-
+      // NEU: Bot in die Wanderrichtung drehen
+      this.mesh.rotation.y = Math.atan2(this._wanderDir.x, this._wanderDir.z);
       this.mesh.rotation.y = Math.atan2(this._wanderDir.x, this._wanderDir.z) + Math.PI;
     }
 
-
+    // simple floor clamp
     this.mesh.position.y = 1.5;
 
-     //obstacle
+    // obstacle avoidance (originale Logik beibehalten)
     for (const o of world.obstacles) {
       const b = new THREE.Box3().setFromObject(o);
       const botBox = new THREE.Box3().setFromCenterAndSize(
@@ -59,7 +79,7 @@ export class Bot {
       }
     }
 
-    // attack 
+    // attack (originale Logik beibehalten)
     this.cooldown -= dt;
     if (dist < this.attackRange && this.cooldown <= 0) {
       player.damage(10);
@@ -69,6 +89,7 @@ export class Bot {
 }
 
 export class BotManager {
+  // WICHTIG: Assets im Konstruktor empfangen und speichern
   constructor(scene, assets) { 
     this.scene = scene;
     this.bots = [];
@@ -76,6 +97,7 @@ export class BotManager {
   }
 
   spawn(pos) {
+    // Ruft jetzt die botMaterial korrekt ab
     const b = new Bot(this.scene, pos, this.assets.botMaterial); 
     this.bots.push(b);
   }

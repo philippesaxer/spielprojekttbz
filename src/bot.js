@@ -11,7 +11,7 @@ export class Bot {
 
 
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
-    // Material: Das texturierte Material verwenden (Fallback auf Rot)
+    // Material
     const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
     this.mesh = new THREE.Mesh(geo, mat);
     this.mesh.position.copy(pos);

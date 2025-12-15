@@ -9,61 +9,42 @@ export class Bot {
     this.attackRange = 2.2;
     this.cooldown = 0;
 
+
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
-    
+    // Material: Das texturierte Material verwenden (Fallback auf Rot)
     const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
-    
     this.mesh = new THREE.Mesh(geo, mat);
     this.mesh.position.copy(pos);
-    scene.add(this.mesh);
-
-    this._wanderDir = new THREE.Vector3(Math.random()-0.5, 0, Math.random()-0.5).normalize();
-  }
-
+@@ -23,7 +22,6 @@
   damage(d) {
     if (this.dead) return;
     this.health -= d;
+    // Rotes Blinken
     this.mesh.material.color.setHex(0xffb3b3); 
     if (this.health <= 0) {
       this.dead = true;
-      this.mesh.visible = false;
-    }
-  }
+@@ -46,70 +44,69 @@
+      toPlayer.normalize();
+      this.mesh.position.addScaledVector(toPlayer, this.speed * dt);
 
-  update(dt, player, world) {
-    if (this.dead) return;
-
-    this.mesh.material.color.lerp(new THREE.Color(0xffffff), 0.1); 
-
-    const toPlayer = player.position.clone().sub(this.mesh.position);
-    const dist = toPlayer.length();
-
-    if (dist < this.aggroRange) {
-      // Verfolgen (Pursue)
-      const dir = toPlayer.clone().setY(0).normalize();
-      this.mesh.position.addScaledVector(dir, this.speed * dt);
-      
-      // ÄNDERUNG: Wir nutzen lookAt, damit die Vorderseite der Kapsel (das Gesicht)
-      // immer direkt zum Spieler schaut.
-      this.mesh.lookAt(player.position.x, this.mesh.position.y, player.position.z);
+      // Bot in die Blickrichtung drehen
+      this.mesh.rotation.y = Math.atan2(toPlayer.x, toPlayer.z) + Math.PI; 
 
     } else {
-      
-      // Herumlaufen (Wander)
-      this.mesh.position.addScaledVector(this._wanderDir, this.speed * 0.5 * dt);
-      
-      // Auch beim Herumlaufen in die Richtung schauen, in die er läuft
-      const target = this.mesh.position.clone().add(this._wanderDir);
-      this.mesh.lookAt(target.x, this.mesh.position.y, target.z);
 
+      this.mesh.position.addScaledVector(this._wanderDir, this.speed * 0.5 * dt);
       if (Math.random() < 0.01) {
         this._wanderDir.set(Math.random()-0.5, 0, Math.random()-0.5).normalize();
       }
+
+
+      this.mesh.rotation.y = Math.atan2(this._wanderDir.x, this._wanderDir.z) + Math.PI;
     }
+
 
     this.mesh.position.y = 1.5;
 
-     // Hindernisse (Obstacles)
+     //obstacle
     for (const o of world.obstacles) {
       const b = new THREE.Box3().setFromObject(o);
       const botBox = new THREE.Box3().setFromCenterAndSize(
@@ -78,7 +59,7 @@ export class Bot {
       }
     }
 
-    // Angriff (Attack)
+    // attack 
     this.cooldown -= dt;
     if (dist < this.attackRange && this.cooldown <= 0) {
       player.damage(10);

@@ -2,7 +2,7 @@ export async function loadAssets(THREE) {
   
   const textureLoader = new THREE.TextureLoader();
   
-  const botTexture = await textureLoader.loadAsync('images/farhan.png'); 
+  const botTexture = await textureLoader.loadAsync('images/frau.webp'); 
 
 
   const botMaterial = new THREE.MeshStandardMaterial({

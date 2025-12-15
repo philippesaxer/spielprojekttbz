@@ -9,7 +9,7 @@ export class Bot {
     this.attackRange = 2.2;
     this.cooldown = 0;
 
-    // Kapsel-Geometrie beibehalten
+    // Kapsel-Geometrie 
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
     // Material: Das texturierte Material verwenden (Fallback auf Rot)
     const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
@@ -34,7 +34,7 @@ export class Bot {
   update(dt, player, world) {
     if (this.dead) return;
 
-    // Farbe langsam wiederherstellen: Geht zurück zu Weiß (0xffffff), dem Standard-Farbmultiplikator
+    // Farbe 
     this.mesh.material.color.lerp(new THREE.Color(0xffffff), 0.1); 
 
     const toPlayer = player.position.clone().sub(this.mesh.position);

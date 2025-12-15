@@ -9,12 +9,44 @@ export class Bot {
     this.attackRange = 2.2;
     this.cooldown = 0;
 
-    
     const geo = new THREE.CapsuleGeometry(0.4, 1.0, 8, 16);
-    const mat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
-    this.mesh = new THREE.Mesh(geo, mat);
+    
+    let bodyMat;
+    let faceTexture = null;
+
+    if (customMaterial && customMaterial.map) {
+      
+      faceTexture = customMaterial.map;
+      
+      bodyMat = new THREE.MeshStandardMaterial({ color: 0x222222 }); 
+    } else {
+     
+      bodyMat = customMaterial || new THREE.MeshStandardMaterial({ color: 0xff5f5f }); 
+    }
+
+ 
+    this.mesh = new THREE.Mesh(geo, bodyMat);
     this.mesh.position.copy(pos);
     scene.add(this.mesh);
+
+    
+    if (faceTexture) {
+     
+      const faceGeo = new THREE.PlaneGeometry(0.5, 0.5);
+      const faceMat = new THREE.MeshStandardMaterial({ 
+        map: faceTexture,
+        transparent: true, 
+        roughness: 1,
+        metalness: 0
+      });
+      const faceMesh = new THREE.Mesh(faceGeo, faceMat);
+
+     
+      faceMesh.position.set(0, 0.4, 0.42);
+      
+      
+      this.mesh.add(faceMesh);
+    }
 
     this._wanderDir = new THREE.Vector3(Math.random()-0.5, 0, Math.random()-0.5).normalize();
   }

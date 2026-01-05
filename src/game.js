@@ -42,7 +42,12 @@ export class Game {
     document.addEventListener('pointerlockchange', () => {
       const locked = document.pointerLockElement === this.canvas;
       this.input.pointerLocked = locked;
-      if (!locked && this.state === 'playing') this.pause();
+      if (!locked && this.state === 'playing') {
+        this.pause();
+      }
+      if (locked && this.state === 'paused') {
+        this.resume();
+      }
     });
 
     this.input.onShoot(() => {

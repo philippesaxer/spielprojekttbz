@@ -18,7 +18,6 @@ export class Player {
 
     this.pitch = 0; this.yaw = 0;
 
-    // Dummy player body for collisions
     const bodyGeo = new THREE.CapsuleGeometry(0.35, 1.2, 8, 16);
     const bodyMat = new THREE.MeshBasicMaterial({ color: 0x8fd3ff, wireframe: true });
     this.body = new THREE.Mesh(bodyGeo, bodyMat);
@@ -58,16 +57,12 @@ export class Player {
   }
 
   update(dt, world) {
-    // Camera orientation
     this.camera.rotation.set(this.pitch, this.yaw, 0, 'YXZ');
 
-    // Gravity
     this.velocity.y -= this.gravity * dt;
 
-    // Movement
     this.position.addScaledVector(this.velocity, dt);
 
-    // Ground collision
     const groundY = raycastDown(this.position, world);
     if (groundY !== null && this.position.y <= groundY + 1.8) {
       this.onGround = true;
@@ -77,7 +72,6 @@ export class Player {
       this.onGround = false;
     }
 
-    // Simple obstacle collision
     for (const o of world.obstacles) {
       const b = new THREE.Box3().setFromObject(o);
       const playerBox = new THREE.Box3().setFromCenterAndSize(

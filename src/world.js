@@ -7,7 +7,6 @@ export function createWorld(scene) {
 
   scene.add(ambient, dir);
 
-  // Floor
   const floorGeo = new THREE.PlaneGeometry(200, 200);
   const floorMat = new THREE.MeshStandardMaterial({ color: 0x2a2f35, roughness: 1, metalness: 0 });
   const floor = new THREE.Mesh(floorGeo, floorMat);
@@ -16,7 +15,6 @@ export function createWorld(scene) {
   floor.name = 'floor';
   scene.add(floor);
 
-  // Obstacles
   const boxes = [];
   for (let i = 0; i < 14; i++) {
     const geo = new THREE.BoxGeometry(4 + Math.random() * 4, 2 + Math.random() * 4, 4 + Math.random() * 4);

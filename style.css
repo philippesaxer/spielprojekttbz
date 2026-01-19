@@ -21,7 +21,6 @@ html, body {
   z-index: 10;
 }
 
-/* Home Screen (Start-Menü) */
 #start {
   position: absolute;
   inset: 0;
@@ -110,7 +109,7 @@ button:hover {
   box-shadow: 0 10px 25px rgba(45, 124, 255, 0.4);
 }
 
-/* HUD & Overlays */
+
 #hud { 
   position: absolute; 
   top: 0; 
@@ -158,8 +157,3 @@ button:hover {
   display: none !important; 
 }
 
-/* Animationen */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}

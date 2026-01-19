@@ -34,6 +34,13 @@ export function setupUI() {
       finalScore.textContent = `Score: ${s}`;
     },
 
+    triggerDamageFlash() {
+      damageOverlay.classList.add('active');
+      setTimeout(() => {
+        damageOverlay.classList.remove('active');
+      }, 200);
+    },
+
     setHealth(v) { health.textContent = `HP: ${Math.max(0, Math.floor(v))}`; },
     setAmmo(v) { ammo.textContent = `Spritzen: ${v}`; },
     setScore(v) { score.textContent = `Score: ${v}`; },

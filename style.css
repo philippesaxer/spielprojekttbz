@@ -62,14 +62,6 @@ html, body {
   width: 90%;
 }
 
-.menu-logo {
-  width: 140px;
-  height: auto;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-  animation: float 4s ease-in-out infinite;
-}
-
 #start h1 {
   font-size: 3.2rem;
   font-weight: 900;

@@ -121,7 +121,6 @@ button:hover { transform: scale(1.05); }
 
 .hidden { display: none !important; }
 
-/* Schadenseffekt */
 .damage-flash {
   position: fixed;
   inset: 0;

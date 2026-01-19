@@ -116,10 +116,15 @@ export class Game {
     const dt = clamp(this.clock.getDelta(), 0, 0.05);
 
     if (this.state === 'playing') {
+      const oldHealth = this.player.health; 
       this.input.update(dt, this.player);
       this.player.update(dt, this.world);
       this.bots.update(dt, this.player, this.world);
       this.projectiles.update(dt, this.world, this.bots);
+        
+      if (this.player.health < oldHealth) {
+        this.ui.triggerDamageFlash();
+      }
       this.ui.setHealth(this.player.health);
       this.ui.setBots(this.bots.aliveCount());
 

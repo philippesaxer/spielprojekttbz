@@ -21,6 +21,9 @@ export class Projectile {
     this.life = life;
     this.alive = true;
     this.mesh.visible = true;
+
+    this.mesh.lookAt(origin.clone().add(dir));
+    this.mesh.rotateX(Math.PI / 2);
   }
 
   update(dt, world, bots) {

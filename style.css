@@ -1,30 +1,165 @@
 html, body {
-  margin: 0; height: 100%; background: #0f1418; color: #e9eef3; font-family: system-ui, sans-serif;
+  margin: 0; 
+  height: 100%; 
+  background: #0f1418; 
+  color: #e9eef3; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
 }
+
 #game { 
-  display: block; width: 100vw; height: 100vh; outline: none; 
+  display: block; 
+  width: 100vw; 
+  height: 100vh; 
+  outline: none; 
 }
+
 #ui { 
-  position: fixed; inset: 0; pointer-events: none; 
+  position: fixed; 
+  inset: 0; 
+  pointer-events: none; 
+  z-index: 10;
 }
-#start, #pause, #gameover { 
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; pointer-events: auto; 
+
+/* Home Screen (Start-Menü) */
+#start {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a222c 0%, #0f1418 100%);
+  pointer-events: auto;
+  z-index: 20;
 }
-#hud { 
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+
+.splash-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.2;
+  background-image: 
+    radial-gradient(circle at 15% 25%, #ffffff 1%, transparent 10%),
+    radial-gradient(circle at 85% 75%, #ffffff 2%, transparent 15%),
+    radial-gradient(circle at 50% 50%, #ffffff 1.5%, transparent 12%),
+    radial-gradient(circle at 75% 20%, #ffffff 2%, transparent 8%),
+    radial-gradient(circle at 25% 80%, #ffffff 1%, transparent 10%);
+  filter: blur(25px) contrast(30); /* Erzeugt den klecksigen Look */
 }
-#hud .bar { 
-  display: flex; gap: 1rem; padding: .5rem .75rem; background: rgba(0,0,0,.35); backdrop-filter: blur(3px); 
+
+
+.content-box {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3.5rem;
+  border-radius: 24px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  max-width: 450px;
+  width: 90%;
 }
-#crosshair { 
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 24px; color: #ffffffaa; user-select: none; 
+
+.menu-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+  animation: float 4s ease-in-out infinite;
 }
+
+#start h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+#start p {
+  color: #8fd3ff;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+
 button { 
-  padding: .6rem 1rem; border: 0; border-radius: .4rem; background: #2d7cff; color: white; cursor: pointer; 
+  padding: 1rem 2.2rem; 
+  border: 0; 
+  border-radius: 50px; 
+  background: #ffffff; 
+  color: #0f1418; 
+  font-weight: bold;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  cursor: pointer; 
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
 button:hover { 
-  background: #1e5ed1; 
+  background: #2d7cff; 
+  color: white;
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 10px 25px rgba(45, 124, 255, 0.4);
 }
+
+/* HUD & Overlays */
+#hud { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+}
+
+#hud .bar { 
+  display: flex; 
+  gap: 1.5rem; 
+  padding: 0.75rem 1.25rem; 
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+#crosshair { 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  font-size: 28px; 
+  color: rgba(255, 255, 255, 0.6); 
+  user-select: none; 
+}
+
+#pause, #gameover { 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  text-align: center; 
+  pointer-events: auto;
+  background: rgba(15, 20, 24, 0.85);
+  padding: 2.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .hidden { 
-  display: none; 
+  display: none !important; 
+}
+
+/* Animationen */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }

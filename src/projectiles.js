@@ -8,7 +8,7 @@ export class Projectile {
     const geo = new THREE.CylinderGeometry(0.05, 0.05, 0.4, 12);
     const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x222222 });
     this.mesh = new THREE.Mesh(geo, mat);
-    this.mesh.rotation.x = Math.PI / 2;
+    this.mesh.rotation.z = Math.PI / 2;
     this.mesh.visible = false;
     scene.add(this.mesh);
 

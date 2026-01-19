@@ -4,6 +4,10 @@ export function setupUI() {
   const pause = document.getElementById('pause');
   const gameover = document.getElementById('gameover');
 
+  const damageOverlay = document.createElement('div');
+  damageOverlay.className = 'damage-flash';
+  document.body.appendChild(damageOverlay);
+  
   const startBtn = document.getElementById('startBtn');
   const retryBtn = document.getElementById('retryBtn');
 
